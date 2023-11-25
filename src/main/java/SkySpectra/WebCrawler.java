@@ -23,6 +23,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WebCrawler {
+
     private Set<String> visitedUrls;
     private Queue<String> urlsToVisit;
     private int maxUrlsToVisit;
