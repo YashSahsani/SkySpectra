@@ -238,9 +238,7 @@ public class FlightAnalysis {
 		}
 	}
 
-//	public static void main(String[] args) {
-//		FlightAnalysis.flightAnalysis("toronto", "ahmedabad", "2024-01-10", "2024-03-10");
-//	}
+
 }
 
 /*

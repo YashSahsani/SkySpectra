@@ -55,7 +55,7 @@ public class SpellChecker {
 		int threshold = 2; // Maximum allowed edit distance
 
 		List<String> dictionary = readDictionaryFromFile(
-				"F:/JAVA/SkySpectra/src/main/java/SkySpectra/Files/city_names.txt");
+				"./Files/city_names.txt");
 		
 		if (dictionary.isEmpty()) {
 			System.out.println("Dictionary is empty or file not found.");
