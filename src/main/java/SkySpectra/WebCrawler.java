@@ -67,7 +67,7 @@ public class WebCrawler {
         int maxUrlsToVisit = 30;
         String saveDir = "skySpectra";
 
-        HashMap<String, Integer> wordFreqMap = new HashMap<>();
+        searchFrequency.TreeNode root = new searchFrequency.TreeNode();
 
         WebCrawler crawler = new WebCrawler(maxUrlsToVisit, saveDir);
         InvertedIndex index = new InvertedIndex();
@@ -110,11 +110,7 @@ public class WebCrawler {
                     System.out.println("Enter the keyword for inverted index: ");
                     String keyword = indexScanner.nextLine();
 
-                    if (wordFreqMap.containsKey(keyword)) {
-                        wordFreqMap.put(keyword, wordFreqMap.get(keyword) + 1);
-                    } else {
-                        wordFreqMap.put(keyword, 1);
-                    }
+                    root.insert(keyword);
                     index.searchKeyword(keyword);
                     break;
 
@@ -122,11 +118,7 @@ public class WebCrawler {
                     System.out.print("Enter the keyword for frequency count(comma separted): ");
                     String keywords = indexScanner.nextLine();
                     for(String word: keywords.split(",")) {
-                        if (wordFreqMap.containsKey(word)) {
-                            wordFreqMap.put(word, wordFreqMap.get(word) + 1);
-                        } else {
-                            wordFreqMap.put(word, 1);
-                        }
+                        root.insert(word);
                     }
                     freqCount.countFrequency(saveDir,keywords);
                     break;
@@ -134,22 +126,13 @@ public class WebCrawler {
                     System.out.print("Enter the keyword for page ranking(comma separted): ");
                     String keywords_ = indexScanner.nextLine();
                     for(String word: keywords_.split(",")) {
-                        if (wordFreqMap.containsKey(word)) {
-                            wordFreqMap.put(word, wordFreqMap.get(word) + 1);
-                        } else {
-                            wordFreqMap.put(word, 1);
-                        }
+                        root.insert(word);
                     }
                     pageRanking.PageRank(saveDir,keywords_);
                     break;
                 case 5:
-                    ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>(wordFreqMap.entrySet());
-                    Collections.sort(list, Map.Entry.<String, Integer>comparingByValue().reversed());
-
-                    System.out.println("Word Frequencies (Descending Order): ");
-                    for (Map.Entry<String, Integer> entry : list) {
-                        System.out.println(entry.getKey() + ": " + entry.getValue());
-                    }
+                    searchFrequency s = new searchFrequency();
+                    s.SearchFrequency(root);
                     break;
                 case 0:
                     System.out.println("Thank you!");
