@@ -64,7 +64,7 @@ public class WebCrawler {
     }
 
     public static void main(String[] args) throws IOException {
-        int maxUrlsToVisit = 20;
+        int maxUrlsToVisit = 30;
         String saveDir = "skySpectra";
 
         HashMap<String, Integer> wordFreqMap = new HashMap<>();
@@ -74,16 +74,16 @@ public class WebCrawler {
         pageRanking pageRanking = new pageRanking();
         FrequencyCount freqCount = new FrequencyCount();
 
-
+        Scanner indexScanner = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
         int option;
 
         do {
-            System.out.println("\n1: Crawl website");
-            System.out.println("\n2: Inverted Indexing");
-            System.out.println("\n3: Page Ranking");
-            System.out.println("\n4: Frequency Count");
-            System.out.println("\n5: Search Frequency");
+            System.out.println("1: Crawl website");
+            System.out.println("2: Inverted Indexing");
+            System.out.println("3: Frequency Count");
+            System.out.println("4: Page Ranking");
+            System.out.println("5: Search Frequency");
             System.out.println("0: Terminate\n");
 
             System.out.println("Enter Value: ");
@@ -103,21 +103,46 @@ public class WebCrawler {
                     } while (!UrlValidator.validate(startingUrl));
                     crawler.clear();
                     crawler.crawl(startingUrl, saveDir);
+                    break;
 
-
-                    Scanner indexScanner = new Scanner(System.in);
-
+                case 2:
                     index.buildIndex(saveDir);
-
-                    System.out.println("Enter the keyword to search: ");
+                    System.out.println("Enter the keyword for inverted index: ");
                     String keyword = indexScanner.nextLine();
+
+                    if (wordFreqMap.containsKey(keyword)) {
+                        wordFreqMap.put(keyword, wordFreqMap.get(keyword) + 1);
+                    } else {
+                        wordFreqMap.put(keyword, 1);
+                    }
                     index.searchKeyword(keyword);
+                    break;
 
-                    pageRanking.PageRank(saveDir,keyword);
-
-                    freqCount.countFrequency(saveDir);
-
-
+                case 3:
+                    System.out.print("Enter the keyword for frequency count(comma separted): ");
+                    String keywords = indexScanner.nextLine();
+                    for(String word: keywords.split(",")) {
+                        if (wordFreqMap.containsKey(word)) {
+                            wordFreqMap.put(word, wordFreqMap.get(word) + 1);
+                        } else {
+                            wordFreqMap.put(word, 1);
+                        }
+                    }
+                    freqCount.countFrequency(saveDir,keywords);
+                    break;
+                case 4:
+                    System.out.print("Enter the keyword for page ranking(comma separted): ");
+                    String keywords_ = indexScanner.nextLine();
+                    for(String word: keywords_.split(",")) {
+                        if (wordFreqMap.containsKey(word)) {
+                            wordFreqMap.put(word, wordFreqMap.get(word) + 1);
+                        } else {
+                            wordFreqMap.put(word, 1);
+                        }
+                    }
+                    pageRanking.PageRank(saveDir,keywords_);
+                    break;
+                case 5:
                     ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>(wordFreqMap.entrySet());
                     Collections.sort(list, Map.Entry.<String, Integer>comparingByValue().reversed());
 
@@ -125,19 +150,7 @@ public class WebCrawler {
                     for (Map.Entry<String, Integer> entry : list) {
                         System.out.println(entry.getKey() + ": " + entry.getValue());
                     }
-
                     break;
-                case 2:
-                        break;
-
-                case 3:
-                        break;
-
-                case 4:
-                        break;
-
-                case 5:
-                        break;
                 case 0:
                     System.out.println("Thank you!");
                     break;
@@ -146,7 +159,7 @@ public class WebCrawler {
                     System.out.println("Invalid option. Please try again.");
                     break;
             }
-        } while (option != 0);
+        } while (option != 0  );
     }
 
 }

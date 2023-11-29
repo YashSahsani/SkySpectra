@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 
 public class FrequencyCount {
 
-    public void countFrequency(String filePath) {
+    public void countFrequency(String filePath, String words) {
         // The local directory that contains the web pages
         File folder = new File(filePath);
         // To get all files from the directory
@@ -21,9 +21,8 @@ public class FrequencyCount {
         Scanner scanner = new Scanner(System.in);
         List<String> keywords = new ArrayList<String>();
         while (keywords.isEmpty()) {
-            System.out.print("Enter the keyword: ");
-            String input = scanner.nextLine();
-            for (String keyword : input.split(",")) {
+
+            for (String keyword : words.split(",")) {
                 keywords.add(keyword.trim().toLowerCase());
             }
             if (keywords.isEmpty()) {
