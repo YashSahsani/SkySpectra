@@ -1,3 +1,5 @@
+package SkySpectra;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -51,9 +53,9 @@ public class SpellChecker {
 		word = word.toLowerCase().trim();
 		ArrayList<String> wordList = new ArrayList<String>();
 		int threshold = 2; // Maximum allowed edit distance
-		
+
 		List<String> dictionary = readDictionaryFromFile(
-				"/Users/vraj/eclipse-workspace/FlightAnalysis/src/Files/city_names.txt");
+				"F:/JAVA/SkySpectra/src/main/java/SkySpectra/Files/city_names.txt");
 		
 		if (dictionary.isEmpty()) {
 			System.out.println("Dictionary is empty or file not found.");

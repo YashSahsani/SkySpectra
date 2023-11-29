@@ -1,3 +1,5 @@
+package SkySpectra;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -91,15 +93,15 @@ class Trie {
 
 public class WordCompletion {
 	private static ArrayList<String> wordList = new ArrayList<String>();
-	
+
 	public static void setWordList(String word) {
 		WordCompletion.wordList.add(word);
 	}
-	
+
 	public static ArrayList<String> spellSuggestions(String word) {
 		word = word.toLowerCase().trim();
 		Trie trie = new Trie();
-		trie.insertFromFile("/Users/vraj/eclipse-workspace/FlightAnalysis/src/Files/city_names.txt");
+		trie.insertFromFile("F:/JAVA/SkySpectra/src/main/java/SkySpectra/Files/city_names.txt");
 		trie.wordCompletion(word);
 		return WordCompletion.wordList;
 	}

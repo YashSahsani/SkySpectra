@@ -1,3 +1,5 @@
+package SkySpectra;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,8 +80,8 @@ public class FlightAnalysis {
 			}
 
 			driver.get(url);
-			
-			try {				
+
+			try {
 				wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("nrc6")));
 				elemList = driver.findElements(By.className("nrc6"));
 			} catch (Exception e) {
@@ -117,8 +119,6 @@ public class FlightAnalysis {
 				put("time", "");
 				put("days", "");
 				put("hours", "");
-				put("stops", "");
-				put("stop airport", "");
 			}
 		};
 
@@ -127,8 +127,6 @@ public class FlightAnalysis {
 				put("time", "\\d{1,2}:\\d{2} [apmAPM]{2}");
 				put("days", "[+-]\\d");
 				put("airports", "[A-Z]{3}[a-zA-Z]*\\s?[a-zA-Z]+");
-				put("stops", "\\b\\d+\\s+stop\\b");
-				put("stop airport", "\\b[A-Z]{3}\\b");
 				put("hours", "\\b\\d+h \\d+m\\b");
 				put("price", "C\\$\\s\\d+(\\,\\d+)?");
 			}
@@ -168,8 +166,19 @@ public class FlightAnalysis {
 		return innerHashMap;
 	}
 
+	public static void getHeaders() {
+		String[] headers = {"Flight", "Hours", "Price", "Days", "Time", "Airports"};
+		System.out.printf("%-55s", headers[0]);
+		System.out.printf("%-25s", headers[1]);
+		System.out.printf("%-15s", headers[2]);
+		System.out.printf("%-15s", headers[3]);
+		System.out.printf("%-45s", headers[4]);
+		System.out.printf("%-25s", headers[5]);
+		System.out.println("\n" + "=".repeat(250));
+	}
+
 	public static void flightAnalysis(String from, String to, String startDate, String endDate) {
-		System.setProperty("webdriver.chrome.driver", "/Users/vraj/Downloads/chromedriver-mac-arm64/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:/Users/intel/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe");
 
 		String[] flightWebsites = { "https://www.ca.kayak.com/", "https://www.cheapflights.ca/",
 				"https://www.momondo.ca/" };
@@ -186,35 +195,46 @@ public class FlightAnalysis {
 
 		HashMap<Integer, HashMap<String, Object>> hm = FlightAnalysis.flightInfoKayak;
 
-		System.out.println(hm.get(0).get("price"));
+
+		getHeaders();
 
 		for (int i : hm.keySet()) {
-			System.out.println("------- Flight " + i + " ---------");
-			for (String key : hm.get(i).keySet()) {
-				System.out.println(key + " -> " + hm.get(i).get(key));
-			}
+			ArrayList<String> price  = (ArrayList<String>) hm.get(i).get("price");
+			System.out.printf("%-55s", hm.get(i).get("flight"));
+			System.out.printf("%-25s", hm.get(i).get("hours"));
+			System.out.printf("%-15s", price.get(0));
+			System.out.printf("%-15s", hm.get(i).get("days"));
+			System.out.printf("%-45s", hm.get(i).get("time"));
+			System.out.printf("%-25s", hm.get(i).get("airports"));
+			System.out.println();
 		}
 
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Cheap Flights !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 		hm = FlightAnalysis.flightInfoCheapFlights;
 
+		getHeaders();
 		for (int i : hm.keySet()) {
-			System.out.println("------- Flight " + i + " ---------");
-			for (String key : hm.get(i).keySet()) {
-				System.out.println(key + " -> " + hm.get(i).get(key));
-			}
+			System.out.printf("%-55s", hm.get(i).get("flight"));
+			System.out.printf("%-25s", hm.get(i).get("hours"));
+			System.out.printf("%-15s", hm.get(i).get("price"));
+			System.out.printf("%-15s", hm.get(i).get("days"));
+			System.out.printf("%-45s", hm.get(i).get("time"));
+			System.out.printf("%-25s", hm.get(i).get("airports"));
+			System.out.println();
 		}
 
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Momondo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-		hm = FlightAnalysis.flightInfoMomondo;
-
+		getHeaders();
 		for (int i : hm.keySet()) {
-			System.out.println("------- Flight " + i + " ---------");
-			for (String key : hm.get(i).keySet()) {
-				System.out.println(key + " -> " + hm.get(i).get(key));
-			}
+			System.out.printf("%-55s", hm.get(i).get("flight"));
+			System.out.printf("%-25s", hm.get(i).get("hours"));
+			System.out.printf("%-15s", hm.get(i).get("price"));
+			System.out.printf("%-15s", hm.get(i).get("days"));
+			System.out.printf("%-45s", hm.get(i).get("time"));
+			System.out.printf("%-25s", hm.get(i).get("airports"));
+			System.out.println();
 		}
 	}
 
