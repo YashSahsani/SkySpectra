@@ -94,11 +94,13 @@ public class InvertedIndex {
         int height;
         String key;
         AVLIndex index;
+        String fileName;
 
-        AVLNode(String key, int pageIndex, int position) {
+        AVLNode(String key, int pageIndex, int position,String fileName) {
             this.key = key;
             this.height = 1;
             this.index = new AVLIndex(pageIndex, position);
+            this.fileName = fileName;
         }
     }
 
@@ -131,7 +133,7 @@ public class InvertedIndex {
                         String[] words = line.split("\\s+");
                         for (String word : words) {
                             // Add the position of the word in the file to the AVL tree
-                            root = insert(root, word.toLowerCase(), pageIndex, position++);
+                            root = insert(root, word.toLowerCase(), pageIndex, position++, file.getName());
                         }
                     }
                 } catch (IOException e) {
@@ -142,15 +144,15 @@ public class InvertedIndex {
         }
     }
 
-    private AVLNode insert(AVLNode node, String word, int pageIndex, int position) {
+    private AVLNode insert(AVLNode node, String word, int pageIndex, int position,String fileName) {
         if (node == null) {
-            return new AVLNode(word, pageIndex, position);
+            return new AVLNode(word, pageIndex, position,fileName);
         }
 
         if (word.compareTo(node.key) < 0) {
-            node.left = insert(node.left, word, pageIndex, position);
+            node.left = insert(node.left, word, pageIndex, position,fileName);
         } else if (word.compareTo(node.key) > 0) {
-            node.right = insert(node.right, word, pageIndex, position);
+            node.right = insert(node.right, word, pageIndex, position,fileName);
         } else {
             // If the word is equal, move to the next word
             node.index.pageIndex = pageIndex;
@@ -255,7 +257,7 @@ public class InvertedIndex {
     private void printOccurrences(AVLNode node) {
         if (node != null) {
             printOccurrences(node.left);
-            System.out.println("File: " + node.index.pageIndex + ", Position: " + node.index.position);
+            System.out.println("pageIndex: " + node.index.pageIndex + ", Position: " + node.index.position +"  Filename: "+node.fileName);
             printOccurrences(node.right);
         }
     }

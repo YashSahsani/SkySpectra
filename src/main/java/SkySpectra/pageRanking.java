@@ -25,7 +25,7 @@ public class pageRanking {
         }
     }
 
-    public void PageRank(String filePath,String inkeyword) {
+    public void PageRank(String filePath,String input) {
         // The local directory that contains the web pages
         File folder = new File(filePath);
         // To get all files from the directory
@@ -35,10 +35,8 @@ public class pageRanking {
         //Defining Array List
         List<String> keywords = new ArrayList<String>();
         while (keywords.isEmpty()) {
-            //Entering keyword to find relavant page
-//            System.out.print("Enter the keyword: ");
-//            String input = scanner.nextLine();
-            for (String keyword : inkeyword.split(",")) {
+
+            for (String keyword : input.split(",")) {
                 keywords.add(keyword.trim().toLowerCase());
             }
             if (keywords.isEmpty()) {
