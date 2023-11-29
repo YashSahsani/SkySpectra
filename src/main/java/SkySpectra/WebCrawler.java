@@ -23,7 +23,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WebCrawler {
-
+//    public static searchFrequency.TreeNode root = new searchFrequency.TreeNode();
     private Set<String> visitedUrls;
     private Queue<String> urlsToVisit;
     private int maxUrlsToVisit;
@@ -79,11 +79,12 @@ public class WebCrawler {
         int option;
 
         do {
-            System.out.println("1: Crawl website");
-            System.out.println("2: Inverted Indexing");
-            System.out.println("3: Frequency Count");
-            System.out.println("4: Page Ranking");
-            System.out.println("5: Search Frequency");
+            System.out.println("1: Do you want to get flight information by search ?");
+            System.out.println("2: Crawl website");
+            System.out.println("3: Inverted Indexing");
+            System.out.println("4: Frequency Count");
+            System.out.println("5: Page Ranking");
+            System.out.println("6: Search Frequency");
             System.out.println("0: Terminate\n");
 
             System.out.println("Enter Value: ");
@@ -91,7 +92,9 @@ public class WebCrawler {
             scanner.nextLine();
 
             switch (option) {
-                case 1:
+                case 1: SkySpectra.main();
+                    break;
+                case 2:
                     String startingUrl;
                     do {
                         System.out.print("Enter a starting URL: ");
@@ -105,7 +108,7 @@ public class WebCrawler {
                     crawler.crawl(startingUrl, saveDir);
                     break;
 
-                case 2:
+                case 3:
                     index.buildIndex(saveDir);
                     System.out.println("Enter the keyword for inverted index: ");
                     String keyword = indexScanner.nextLine();
@@ -114,7 +117,7 @@ public class WebCrawler {
                     index.searchKeyword(keyword);
                     break;
 
-                case 3:
+                case 4:
                     System.out.print("Enter the keyword for frequency count(comma separted): ");
                     String keywords = indexScanner.nextLine();
                     for(String word: keywords.split(",")) {
@@ -122,7 +125,7 @@ public class WebCrawler {
                     }
                     freqCount.countFrequency(saveDir,keywords);
                     break;
-                case 4:
+                case 5:
                     System.out.print("Enter the keyword for page ranking(comma separted): ");
                     String keywords_ = indexScanner.nextLine();
                     for(String word: keywords_.split(",")) {
@@ -130,7 +133,7 @@ public class WebCrawler {
                     }
                     pageRanking.PageRank(saveDir,keywords_);
                     break;
-                case 5:
+                case 6:
                     searchFrequency s = new searchFrequency();
                     s.SearchFrequency(root);
                     break;

@@ -11,18 +11,28 @@ public class DataValidation {
 		Pattern pattern = Pattern.compile(dateRegex);
 		Matcher matcher = pattern.matcher(data);
 		boolean formatCheck = matcher.matches();
-		boolean checkCurrentDate = false;
+		boolean checkCurrentDate = DataValidation.validateDate(data, "");
 
+
+		return formatCheck && !checkCurrentDate;
+	}
+
+	public static boolean validateDate(String data, String otherDate) {
+		boolean checkCurrentDate = false;
+		LocalDate currentDate = null;
 		try {
 			LocalDate enteredDate = LocalDate.parse(data);
-			LocalDate currentDate = LocalDate.now();
+			if (otherDate.isEmpty()) {
+				currentDate = LocalDate.now();
+			} else {
+				currentDate = LocalDate.parse(otherDate);
+			}
 
 			checkCurrentDate = enteredDate.isBefore(currentDate);
 		} catch (DateTimeParseException e) {
-			// Parsing exception, meaning the input is not a valid date format
 			return false;
 		}
-		return formatCheck && !checkCurrentDate;
+		return checkCurrentDate;
 	}
 
 }

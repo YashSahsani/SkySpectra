@@ -53,7 +53,7 @@ public class SpellChecker {
 		word = word.toLowerCase().trim();
 		ArrayList<String> wordList = new ArrayList<String>();
 		int threshold = 2; // Maximum allowed edit distance
-		
+
 		List<String> dictionary = readDictionaryFromFile(
 				"./Files/city_names.txt");
 		
