@@ -80,6 +80,10 @@ public class WebCrawler {
 
         do {
             System.out.println("\n1: Crawl website");
+            System.out.println("\n2: Inverted Indexing");
+            System.out.println("\n3: Page Ranking");
+            System.out.println("\n4: Frequency Count");
+            System.out.println("\n5: Search Frequency");
             System.out.println("0: Terminate\n");
 
             System.out.println("Enter Value: ");
@@ -123,7 +127,17 @@ public class WebCrawler {
                     }
 
                     break;
+                case 2:
+                        break;
 
+                case 3:
+                        break;
+
+                case 4:
+                        break;
+
+                case 5:
+                        break;
                 case 0:
                     System.out.println("Thank you!");
                     break;
