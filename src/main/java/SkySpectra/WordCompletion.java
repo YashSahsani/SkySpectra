@@ -101,7 +101,7 @@ public class WordCompletion {
 	public static ArrayList<String> spellSuggestions(String word) {
 		word = word.toLowerCase().trim();
 		Trie trie = new Trie();
-		trie.insertFromFile("F:/JAVA/SkySpectra/src/main/java/SkySpectra/Files/city_names.txt");
+		trie.insertFromFile("./Files/city_names.txt");
 		trie.wordCompletion(word);
 		return WordCompletion.wordList;
 	}

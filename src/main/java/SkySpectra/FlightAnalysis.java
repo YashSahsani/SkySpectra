@@ -1,22 +1,19 @@
 package SkySpectra;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FlightAnalysis {
 	private static HashMap<Integer, HashMap<String, Object>> flightInfoKayak = new HashMap<>();
@@ -24,7 +21,7 @@ public class FlightAnalysis {
 	private static HashMap<Integer, HashMap<String, Object>> flightInfoMomondo = new HashMap<>();
 
 	private static void scrapeData(String from, String to, String startDate, String endDate, String flightWebsite) {
-		WebDriver driver = new ChromeDriver();
+		WebDriver driver = new FirefoxDriver();
 
 		try {
 
@@ -178,7 +175,7 @@ public class FlightAnalysis {
 	}
 
 	public static void flightAnalysis(String from, String to, String startDate, String endDate) {
-		System.setProperty("webdriver.chrome.driver", "C:/Users/intel/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe");
+//		System.setProperty("webdriver.chrome.driver", "/Users/yashsashani/Downloads/selenium-java-4/chromedriver");
 
 		String[] flightWebsites = { "https://www.ca.kayak.com/", "https://www.cheapflights.ca/",
 				"https://www.momondo.ca/" };
